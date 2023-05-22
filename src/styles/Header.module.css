@@ -1,0 +1,8 @@
+.title {
+  font-family: "Archivo Black", sans-serif;
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
