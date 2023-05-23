@@ -20,13 +20,10 @@ const JoinGame = () => {
       },
     });
 
-    await router.push(
-      {
-        pathname: "/game",
-        query: { game: JSON.stringify(res.data.game) },
-      },
-      "/game"
-    );
+    await router.push({
+      pathname: "/game/[id]",
+      query: { id: state },
+    });
   };
 
   return (

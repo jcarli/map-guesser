@@ -1,24 +1,22 @@
 import PropTypes from "prop-types";
-import Link from "next/link";
 
-const Button = ({ text, path, data, disabled, onClick }) => {
+const Button = ({ text, disabled, onClick }) => {
   return (
-    <Link
-      href={{
-        pathname: path,
-        query: JSON.stringify(data), // the data
-      }}
-    >
-      <button disabled={disabled} onClick={onClick} className="btn">
-        {text}
-      </button>
-    </Link>
+    <button disabled={disabled} onClick={onClick} className="btn">
+      {text}
+    </button>
   );
 };
 
 Button.propTypes = {
   text: PropTypes.string,
   onClick: PropTypes.func,
+  disabled: PropTypes.bool,
+  navigate: PropTypes.bool,
+};
+
+Button.defaultProps = {
+  navigate: false,
 };
 
 export default Button;

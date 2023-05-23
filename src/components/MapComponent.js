@@ -79,8 +79,7 @@ const MapComponent = ({
   // center change handler
   useEffect(() => {
     if (!map) return;
-    map.getView().setCenter(center);
-    //setCurrCenter(center);
+    map.getView().setCenter(currCenter);
   }, [center]);
 
   useEffect(() => {
@@ -95,6 +94,7 @@ const MapComponent = ({
         marker: currMarker,
       };
       captureMapData(mapData);
+      setCurrCenter(newCenter);
     });
   });
 
@@ -105,7 +105,6 @@ const MapComponent = ({
       if (map) {
         if (sourceRef) {
           sourceRef.clear(false);
-          //setCurrMarker(undefined);
         }
         var pixel = evt.pixel;
         var coordinate = map.getCoordinateFromPixel(pixel);

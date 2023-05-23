@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import { useRouter } from "next/router";
 import Button from "./Button";
 import axios from "axios";
 import * as ol from "ol";
@@ -19,12 +18,11 @@ import { getDistance } from "ol/sphere";
 import { transform } from "ol/proj.js";
 import olms from "ol-mapbox-style";
 
-const Admin = () => {
-  const router = useRouter();
-  const [game, setGame] = useState(undefined);
-  const [name, setName] = useState(router.query.name);
-  const [center, setCenter] = useState([0, 0]);
-  const [zoom, setZoom] = useState(0);
+const Admin = (props) => {
+  const game = JSON.parse(props.game);
+
+  const [center, setCenter] = useState(game.center.split(",").map(Number));
+  const [zoom, setZoom] = useState(game.zoom);
   const [showMap, setShowMap] = useState(false);
   const [answers, setAnswers] = useState([]);
   const mapRef = useRef(null);
@@ -45,7 +43,7 @@ const Admin = () => {
   useEffect(() => {
     let options = {
       view: new ol.View({
-        constrainResolution: true,
+        constrainResolution: false,
         center: center,
         zoom: zoom,
       }),
@@ -72,14 +70,12 @@ const Admin = () => {
   useEffect(() => {
     if (!map) return;
     map.getView().setZoom(zoom);
-    //setCurrZoom(zoom);
   }, [zoom]);
 
   // center change handler
   useEffect(() => {
     if (!map) return;
     map.getView().setCenter(center);
-    //setCurrCenter(center);
   }, [center]);
 
   function toggle() {
@@ -91,7 +87,7 @@ const Admin = () => {
 
     const res = await axios.get("/api/db/getanswers", {
       params: {
-        name: name,
+        name: game.name,
       },
     });
     var stripped = res.data.answers.map((answer) => {
@@ -173,27 +169,10 @@ const Admin = () => {
     return Math.round(length / 1000);
   }
 
-  useEffect(() => {
-    const getGame = async (e) => {
-      const res = await axios.get("/api/db/getgame", {
-        params: {
-          name: router.query.name,
-        },
-      });
-
-      let c = "" + res.data.game.center;
-      setGame(res.data.game);
-      setName(router.query.name);
-      setCenter(c.split(",").map(Number));
-      setZoom(res.data.game.zoom);
-    };
-    getGame().catch(console.error);
-  }, []);
-
   return (
     <div className="container">
       <h2>
-        <span className="gradient-text">{name}</span>
+        <span className="gradient-text">{game.name}</span>
       </h2>
       {/*The bottom code should toggle on and off when the button is pressed*/}
       <div

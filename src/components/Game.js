@@ -4,13 +4,15 @@ import Button from "./Button";
 import MapDisplay from "./MapDisplay";
 import axios from "axios";
 
-const Game = () => {
+const Game = (props) => {
   const router = useRouter();
   const input = useRef();
+
+  const game = JSON.parse(props.data);
+  const center = game.center.split(",").map(Number);
+  const zoom = game.zoom;
+
   const [state, setState] = useState("");
-  const [game, setGame] = useState(undefined);
-  const [center, setCenter] = useState([0, 0]);
-  const [zoom, setZoom] = useState(0);
   const [marker, setMarker] = useState(undefined);
   const [mapData, setMapData] = useState({
     zoom: zoom,
@@ -18,7 +20,7 @@ const Game = () => {
     marker: marker,
   });
 
-  const handleClick = () => {
+  const teamNameChange = () => {
     setState(input.current.value);
   };
 
@@ -38,13 +40,6 @@ const Game = () => {
     await router.push("/");
   };
 
-  useEffect(() => {
-    let gameObject = JSON.parse(router.query.game);
-    setGame(gameObject);
-    setCenter(gameObject.center.split(",").map(Number));
-    setZoom(gameObject.zoom);
-  }, [router.query]);
-
   return (
     <>
       <MapDisplay
@@ -57,7 +52,7 @@ const Game = () => {
         <div className="form__group field">
           <input
             type="input"
-            onChange={handleClick}
+            onChange={teamNameChange}
             ref={input}
             className="form__field"
             placeholder="Lagnamn"
