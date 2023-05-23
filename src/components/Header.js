@@ -5,7 +5,6 @@ const Header = () => {
   return (
     <Link
       href="/"
-      className="gradient-text"
       style={{
         textDecoration: "none",
         fontSize: 30,

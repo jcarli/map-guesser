@@ -129,3 +129,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+#Mac OS Files
+.DS_Store
+

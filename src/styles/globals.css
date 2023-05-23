@@ -2,33 +2,17 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  color: #9b9b9b;
   font-family: "Archivo Black", sans-serif;
 }
 
-body {
+h2 {
   font-family: "Archivo Black", sans-serif;
-}
-
-.ol-map {
-  min-width: 800px;
-  min-height: 500px;
-  margin: 50px;
-  height: 500px;
-  width: 800px;
-}
-.ol-control {
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0.4);
-  border-radius: 4px;
-  padding: 2px;
-}
-.ol-full-screen {
-  top: 0.5em;
-  right: 0.5em;
-}
-
-.lower-card {
-  margin-left: 50px;
+  font-weight: normal;
+  font-size: 4em;
+  text-align: center;
+  margin-bottom: 0;
+  margin-bottom: -0.25em;
 }
 
 .gradient-text {
@@ -36,7 +20,7 @@ body {
   background-color: #5b42f3;
 
   /* Create the gradient. */
-  background-image: linear-gradient(45deg, #af40ff, #00ddeb);
+  background-image: linear-gradient(to right, #8ec5fc, #e0c3fc);
 
   /* Set the background size and repeat properties. */
   background-size: 100%;
@@ -50,39 +34,53 @@ body {
   -moz-text-fill-color: transparent;
 }
 
-h2 {
-  font-family: "Archivo Black", sans-serif;
-  font-weight: normal;
-  font-size: 4em;
-  text-align: center;
-  margin-bottom: 0;
-  margin-bottom: -0.25em;
+.ol-control {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  padding: 2px;
+}
+.ol-full-screen {
+  top: 0.5em;
+  right: 0.5em;
 }
 
-.container {
-  min-width: 600px;
+body {
   width: 100%;
-  margin: 30px auto;
-  overflow: auto;
-  align-items: center;
-  display: grid;
-  text-align: center;
-  min-height: 300px;
-  border: 1px solid steelblue;
-  padding: 30px;
-  border-radius: 5px;
+  height: 100%;
+  background-image: linear-gradient(to right, #8ec5fc, #e0c3fc);
+  font-family: "Archivo Black", sans-serif;
 }
 
 .buttons {
   display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
+  flex-direction: column;
 }
 
 .answers {
+  margin: 20px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.container {
+  min-width: 767px;
+  background-color: rgb(255, 255, 255);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 4px;
+}
+
+.container-small {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 300px;
+  background-color: rgb(255, 255, 255);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 4px;
 }
 
 .answer {
@@ -91,7 +89,7 @@ h2 {
   text-align: center;
   min-height: 5px;
   min-width: 150px;
-  border: 1px solid #5b42f3;
+  border: 1px solid #fcc58e;
   padding: 10px;
   margin: 5px;
   border-radius: 5px;
@@ -101,95 +99,6 @@ h2 {
   touch-action: manipulation;
   white-space: nowrap;
   cursor: pointer;
-}
-/* CSS */
-.btn {
-  align-items: center;
-  background-image: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
-  border: 0;
-  border-radius: 8px;
-  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
-  box-sizing: border-box;
-  color: #ffffff;
-  display: flex;
-  font-family: Phantomsans, sans-serif;
-  font-size: 20px;
-  justify-content: center;
-  line-height: 1em;
-  max-height: 60px;
-  margin-top: 20px;
-  max-width: 100%;
-  min-width: 140px;
-  padding: 19px 24px;
-  text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-@media (min-width: 768px) {
-  .btn {
-    font-size: 24px;
-    min-width: 196px;
-  }
-}
-
-.btn[disabled="disabled"],
-.btn:disabled,
-.btn-disable {
-  background-image: linear-gradient(144deg, #ebebeb, #878787 50%, #cccccc);
-  border: 1px solid #999999;
-  background-color: #cccccc;
-  color: #666666;
-}
-
-.btn:focus {
-  outline: none;
-}
-
-.btn:hover {
-  transform: scale(0.98);
-}
-
-.btn:active {
-  transform: scale(0.95);
-}
-
-.btn-block {
-  display: block;
-  width: 100%;
-}
-
-.form__group {
-  position: relative;
-  padding: 15px 0 0;
-  margin-top: 10px;
-  width: 50%;
-}
-
-.form__field {
-  font-family: inherit;
-  width: 100%;
-  border: 0;
-  border-bottom: 2px solid #9b9b9b;
-  outline: 0;
-  font-size: 16px;
-  color: #9b9b9b;
-  padding: 7px 0;
-  background: transparent;
-  transition: border-color 0.2s;
-
-  &::placeholder {
-    color: transparent;
-  }
-
-  &:placeholder-shown ~ .form__label {
-    font-size: 1.3rem;
-    cursor: text;
-    top: 20px;
-  }
 }
 
 .form__label {
@@ -204,8 +113,8 @@ h2 {
 .form__field:focus {
   padding-bottom: 6px;
   border-width: 3px;
-  border-image: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
-  border-image-slice: 1;
+  /* border-image: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
+  border-image-slice: 1; */
 }
 /* reset input */
 .form__field {
@@ -214,22 +123,93 @@ h2 {
     box-shadow: none;
   }
 }
-
-@media (max-width: 400px) {
-  /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
-
-  .ol-map {
-    width: 320px;
-    /* height: 320px; */
-    min-width: 200px;
-  }
+/* Styling for the outer container */
+.outer-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-@media screen and (orientation: landscape) {
-  /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+/* Styling for the map */
+.ol-map {
+  margin: 20px 0;
+  /* min-width: 400px; */
+  width: 100%;
+  height: 400px; /* Adjust the height as needed */
+  /* Add any additional styles for the map here */
+}
 
-  .ol-map {
-    width: 600px;
+/* Styling for the lower card */
+.lower-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px; /* Adjust the margin as needed */
+}
+
+/* Styling for the form group */
+.form__group {
+  margin-bottom: 15px; /* Adjust the margin as needed */
+}
+
+/* Styling for the form field */
+.form__field {
+  width: 100%; /* Adjust the width as needed */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Styling for the input button */
+.btn {
+  margin: 20px 0;
+  width: 120px; /* Adjust the width as needed */
+  height: 40px; /* Adjust the height as needed */
+  background-color: #fcc58e; /* Adjust the background color as needed */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #e2b17f; /* Adjust the hover background color as needed */
+}
+
+/* Responsive styles for mobile devices */
+@media (max-width: 767px) {
+  .container {
+    min-width: 0px;
+    width: 100%;
+  }
+
+  .container-small {
+    display: inline-block;
+    flex-direction: column;
+    align-items: center;
     min-width: 300px;
+    width: 100%;
+  }
+  /* Adjust the max-width as needed for your specific layout */
+  /* Styling for the map */
+  .ol-map {
+    min-width: 0px;
+    width: 100%;
+    height: 300px; /* Adjust the height as needed for mobile */
+  }
+
+  .form__group {
+    width: 100%;
+  }
+  /* Styling for the form field */
+  .form__field {
+    width: 100%; /* Adjust the width as needed for mobile */
+  }
+
+  /* Styling for the input button */
+  .btn {
+    width: 100%; /* Adjust the width as needed for mobile */
   }
 }

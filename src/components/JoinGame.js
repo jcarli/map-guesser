@@ -1,6 +1,6 @@
 import Button from "./Button";
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 
 const JoinGame = () => {
@@ -14,11 +14,6 @@ const JoinGame = () => {
 
   const handleJoin = async (e) => {
     e.preventDefault();
-    const res = await axios.get("/api/db/getgame", {
-      params: {
-        name: state.toUpperCase(),
-      },
-    });
 
     await router.push({
       pathname: "/game/[id]",
@@ -27,22 +22,23 @@ const JoinGame = () => {
   };
 
   return (
-    <>
+    <div className="container-small">
       <div className="form__group field">
         <input
           type="input"
+          defaultValue={router.query.game_id}
           onChange={(e) => setState(e.target.value)}
-          onInput={toInputUppercase} // apply on input which do you want to be capitalize
+          onInput={toInputUppercase} // apply on input which do you want to be capitalized
           ref={input}
           className="form__field"
           placeholder="Spel ID"
           name="Spel ID"
-          id="Spel ID"
+          id="game_id"
           required
         />
       </div>
       <Button path="/game" text="Anslut" onClick={handleJoin} />
-    </>
+    </div>
   );
 };
 

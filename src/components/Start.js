@@ -19,7 +19,7 @@ const Start = () => {
   };
 
   return (
-    <div className="start">
+    <div className="container-small">
       <Button text="Nytt spel" onClick={create_game} disabled={false} />
       <Button text="Anslut till spel" onClick={join_game} disabled={false} />
     </div>

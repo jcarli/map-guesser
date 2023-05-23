@@ -50,7 +50,7 @@ const NewGame = () => {
   };
 
   return (
-    <>
+    <div className="container">
       <MapDisplay
         startZoom={mapData.zoom === undefined ? 0 : mapData.zoom}
         startCenter={mapData.center === undefined ? [0, 0] : mapData.center}
@@ -62,7 +62,7 @@ const NewGame = () => {
         disabled={mapData.marker === undefined}
         onClick={handleCreate}
       />
-    </>
+    </div>
   );
 };
 

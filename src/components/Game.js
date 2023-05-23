@@ -41,7 +41,7 @@ const Game = (props) => {
   };
 
   return (
-    <>
+    <div className="container">
       <MapDisplay
         startZoom={zoom}
         startCenter={center}
@@ -68,7 +68,7 @@ const Game = (props) => {
           onClick={handleSubmit}
         />
       </div>
-    </>
+    </div>
   );
 };
 

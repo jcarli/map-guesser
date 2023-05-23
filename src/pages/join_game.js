@@ -2,9 +2,9 @@ import JoinGame from "@/components/JoinGame";
 
 const join_game = () => {
   return (
-    <div>
+    <>
       <JoinGame />
-    </div>
+    </>
   );
 };
 
