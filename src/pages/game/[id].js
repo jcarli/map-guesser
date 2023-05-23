@@ -1,4 +1,5 @@
 import Game from "@/components/Game";
+import prisma from "@/lib/prisma";
 
 const game = (props) => {
   return (
