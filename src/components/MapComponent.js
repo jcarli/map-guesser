@@ -32,12 +32,6 @@ const MapComponent = ({
 
   const vectorLayer = new VectorLayer({
     source: new VectorSource(),
-    style: new Style({
-      image: new Icon({
-        anchor: [0.5, 1],
-        src: "src/assets/img/location.png",
-      }),
-    }),
   });
   // on component mount
   useEffect(() => {
@@ -125,7 +119,7 @@ const MapComponent = ({
               anchor: [0.5, 4557],
               anchorXUnits: "fraction",
               anchorYUnits: "pixels",
-              src: "../assets/img/location.png",
+              src: "../assets/img/location-blue.png",
               scale: 0.01,
             }),
           }),
@@ -155,7 +149,7 @@ const MapComponent = ({
                   anchor: [0.5, 46],
                   anchorXUnits: "fraction",
                   anchorYUnits: "pixels",
-                  src: "../assets/img/location.png",
+                  src: "../assets/img/location-blue.png",
                   scale: 0.05,
                 }),
               }),
