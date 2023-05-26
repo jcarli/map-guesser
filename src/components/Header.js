@@ -11,7 +11,7 @@ const Header = () => {
       }}
     >
       <header>
-        <h1 className={headerStyles.title}>Närmast vinner</h1>
+        <h2 className={headerStyles.title}>Närmast vinner</h2>
         <title>Närmast vinner</title>
         <meta name="keywords" content="game" />
       </header>

@@ -183,9 +183,9 @@ const Admin = (props) => {
         />
       </div>
 
-      <h2>
+      <h1>
         <span className="gradient-text">{game.name}</span>
-      </h2>
+      </h1>
       <div
         style={{
           display: showMap ? "block" : "none",
