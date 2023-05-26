@@ -16,6 +16,7 @@ h2 {
 }
 
 .gradient-text {
+  position: relative;
   /* Fallback: Set a background color. */
   background-color: #5b42f3;
 
@@ -54,33 +55,15 @@ body {
 
 .buttons {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 .answers {
   margin: 20px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.container {
-  min-width: 767px;
-  background-color: rgb(255, 255, 255);
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 4px;
-}
-
-.container-small {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 300px;
-  background-color: rgb(255, 255, 255);
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 4px;
+  place-items: stretch;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .answer {
@@ -99,6 +82,53 @@ body {
   touch-action: manipulation;
   white-space: nowrap;
   cursor: pointer;
+}
+
+.qr-code {
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 70px;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 4px;
+  border-color: black;
+  border-width: 2px;
+  padding: 10px;
+  height: 70px;
+  object-fit: contain;
+  transition: width 0.3s, height 0.3s; /* Transition effect */
+}
+
+.qr-code-large {
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 4px;
+  border-color: black;
+  position: absolute;
+  transition: width 0.3s, height 0.3s; /* Transition effect */
+  width: 200px; /* Larger width */
+  height: 200px; /* Larger height */
+}
+
+.container {
+  min-width: 767px;
+  background-color: rgb(255, 255, 255);
+  padding: 30px;
+  position: relative;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 4px;
+}
+
+.container-small {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 300px;
+  background-color: rgb(255, 255, 255);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 4px;
 }
 
 .form__label {

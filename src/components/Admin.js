@@ -17,8 +17,11 @@ import { Feature } from "ol";
 import { getDistance } from "ol/sphere";
 import { transform } from "ol/proj.js";
 import olms from "ol-mapbox-style";
+import { useQRCode } from "next-qrcode";
 
 const Admin = (props) => {
+  const { SVG } = useQRCode();
+
   const game = JSON.parse(props.game);
 
   const [center, setCenter] = useState(game.center.split(",").map(Number));
@@ -31,12 +34,6 @@ const Admin = (props) => {
 
   const vectorLayer = new VectorLayer({
     source: new VectorSource(),
-    style: new Style({
-      image: new Icon({
-        anchor: [0.5, 1],
-        src: "src/assets/img/location.png",
-      }),
-    }),
   });
 
   // on component mount
@@ -62,7 +59,7 @@ const Admin = (props) => {
 
     olms(
       mapObject,
-      "https://api.maptiler.com/maps/b81bf257-847f-4195-9400-e088211a98ef/style.json?key=DPgMbCMF3WTd3QIM4mLw "
+      "https://api.maptiler.com/maps/b81bf257-847f-4195-9400-e088211a98ef/style.json?key=DPgMbCMF3WTd3QIM4mLw"
     );
     return () => mapObject.setTarget(undefined);
   }, []);
@@ -96,16 +93,12 @@ const Admin = (props) => {
         coordinates: answer.coordinates.split(",").map((c) => parseFloat(c)),
       };
     });
-    let reference = {
-      name: "<Referens>",
-      coordinates: game.marker.split(",").map((c) => parseFloat(c)),
-    };
-    stripped.push(reference);
+
     setAnswers(stripped);
     setWinner("");
   };
 
-  const placeMarker = (coordinate, name) => {
+  const placeMarker = (coordinate, name, fileName) => {
     var feature = new Feature({
       geometry: new Point(coordinate),
       type: "Point",
@@ -121,7 +114,7 @@ const Admin = (props) => {
           anchor: [0.5, 4557],
           anchorXUnits: "fraction",
           anchorYUnits: "pixels",
-          src: "../assets/img/location.png",
+          src: `../assets/img/${fileName}.png`,
           scale: 0.01,
         }),
         text: new Text({
@@ -131,9 +124,7 @@ const Admin = (props) => {
             color: "#fff",
             width: 2,
           }),
-          // get the text from the feature - `this` is ol.Feature
-          // and show only under certain resolution
-          text: name != "<Referens>" ? name : "",
+          text: name,
           offsetX: 0,
           offsetY: -55,
         }),
@@ -141,25 +132,29 @@ const Admin = (props) => {
     });
     layer.set("layerId" + name, "Point");
     map.addLayer(layer);
-
-    if (name === "<Referens>") {
-      var coordinates = answers.slice(0, -1);
-      var list = coordinates.map((c) => {
-        return {
-          name: c.name,
-          distance: distanceBetweenPoints(
-            c.coordinates,
-            game.marker.split(",").map((c) => parseFloat(c))
-          ),
-        };
-      });
-      let winningTeam = list.reduce((prev, curr) =>
-        prev.distance < curr.distance ? prev : curr
-      );
-
-      setWinner("" + winningTeam.name + " (" + winningTeam.distance + " km)");
-    }
   };
+
+  function calculateWinner() {
+    let referenceCoords = game.marker.split(",").map((c) => parseFloat(c));
+
+    if (answers.length === 0) {
+      return;
+    }
+
+    var list = answers.map((c) => {
+      return {
+        name: c.name,
+        distance: distanceBetweenPoints(c.coordinates, referenceCoords),
+      };
+    });
+
+    let winningTeam = list.reduce((prev, curr) =>
+      prev.distance < curr.distance ? prev : curr
+    );
+
+    placeMarker(referenceCoords, "", "location-yellow");
+    setWinner("" + winningTeam.name + " (" + winningTeam.distance + " km)");
+  }
 
   function distanceBetweenPoints(latlng1, latlng2) {
     var length = getDistance(
@@ -169,12 +164,28 @@ const Admin = (props) => {
     return Math.round(length / 1000);
   }
 
+  function toggleSize() {
+    document.getElementById("qr-code").classList.toggle("qr-code-large");
+  }
+
   return (
     <div className="container">
+      <div id="qr-code" className="qr-code" onClick={toggleSize}>
+        <SVG
+          text={`https://map-guesser-coral.vercel.app/game/${game.name}`}
+          options={{
+            margin: 2,
+            color: {
+              dark: "#000000",
+              light: "#FFFFFF",
+            },
+          }}
+        />
+      </div>
+
       <h2>
         <span className="gradient-text">{game.name}</span>
       </h2>
-      {/*The bottom code should toggle on and off when the button is pressed*/}
       <div
         style={{
           display: showMap ? "block" : "none",
@@ -186,20 +197,8 @@ const Admin = (props) => {
         <Button onClick={toggle} text={showMap ? "Göm karta" : "Visa karta"} />
 
         <Button onClick={getAnswers} text={"Hämta svar"} />
-        <div className="answers">
-          {answers.map((answer) => {
-            return (
-              <span
-                className="answer"
-                key={answer.name}
-                onClick={() => placeMarker(answer.coordinates, answer.name)}
-              >
-                {answer.name}
-              </span>
-            );
-            /**  */
-          })}
-        </div>
+
+        <Button onClick={calculateWinner} text={"Visa vinnare"} />
       </div>
       <span
         className="gradient-text"
@@ -207,8 +206,23 @@ const Admin = (props) => {
           display: winner === "" ? "none" : "block",
         }}
       >
-        <h1> Winner: {winner}</h1>
+        <h2> Vinnare: {winner}</h2>
       </span>
+      <div className="answers">
+        {answers.map((answer) => {
+          return (
+            <span
+              className="answer"
+              key={answer.name}
+              onClick={() =>
+                placeMarker(answer.coordinates, answer.name, "location-blue")
+              }
+            >
+              {answer.name}
+            </span>
+          );
+        })}
+      </div>
     </div>
   );
 };
